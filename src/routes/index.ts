@@ -1,39 +1,22 @@
 import * as Hapi from 'hapi';
+import * as fs from 'fs';
+import * as Path from 'path';
 import IRoute from '../helper/route';
 import Logger from '../helper/logger';
-import * as Joi from "joi";
-
 export class Routes implements IRoute {
   public async register(server: Hapi.Server): Promise<any> {
     return new Promise(resolve => {
-      Logger.info('UserRoutes - Start adding user routes.');
-
-      server.route([
-        {
-          method: 'POST',
-          path: '/api/users',
-          options: {
-            description: 'Method that creates a new user.',
-            tags: ['api', 'users'],
-            auth: false,
-            validate: {
-              payload: Joi.object({
-                name: Joi.string().required().description('账号名称'),
-                password: Joi.string().required().description('密码'),
-              })
-            },
-            handler: (request, h) => {
-              return 'asfasf'
-            }
-          },
-        }
-      ]);
-      Logger.info('UserRoutes - Finish adding user routes.');
+      const files = fs.readdirSync(__dirname).filter(function (file) {
+        return Path.extname(file).toLowerCase() === '.js' && file !== 'index.js'
+      });
+      files.forEach(async function (file) {
+        const { routes } = await import(Path.join(__dirname, file));
+        server.route(routes)
+      })
       resolve();
     });
   }
 }
-
 export default class Router {
   public static async loadRoutes(server: Hapi.Server): Promise<any> {
     Logger.info('路由 - 开始加载路由');
