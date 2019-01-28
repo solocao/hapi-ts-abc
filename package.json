@@ -41,6 +41,9 @@
     "@types/dotenv": "^6.1.0",
     "@types/hapi": "^17.8.2",
     "@types/joi": "^14.0.1",
+    "@types/mongodb": "^3.1.19",
+    "@types/mongoose": "^5.3.10",
+    "@types/mongoose-paginate": "^5.0.6",
     "@types/nedb": "^1.8.3",
     "@types/node": "^10.12.18",
     "@types/tape": "^4.2.33",
@@ -52,6 +55,8 @@
     "hapijs-status-monitor": "ziyasal/hapijs-status-monitor",
     "inert": "^5.1.2",
     "joi": "^14.3.1",
+    "mongoose": "^5.4.7",
+    "mongoose-paginate": "^5.0.3",
     "nedb": "^1.8.0",
     "vision": "^5.4.4",
     "winston": "^3.1.0"

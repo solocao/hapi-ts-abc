@@ -36,7 +36,7 @@ export default class Server {
     }
 
     public static stop(): Promise<Error | void> {
-        Logger.info(`Server - Stopping!`);
+        Logger.info(`服务终止!`);
 
         return Server._instance.stop();
     }
