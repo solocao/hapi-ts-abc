@@ -2,8 +2,8 @@ import * as Hapi from 'hapi';
 import * as DotEnv from 'dotenv';
 
 import Logger from './helper/logger';
-import Plugin from './plugin';
-import Router from './router';
+import Plugin from './plugins';
+import Router from './routes';
 
 export default class Server {
     private static _instance: Hapi.Server;
@@ -17,8 +17,9 @@ export default class Server {
             Server._instance = new Hapi.Server({
                 port: process.env.PORT,
             });
-
+            // 注册插件
             await Plugin.registerAll(Server._instance);
+            // 注册路由
             await Router.loadRoutes(Server._instance);
 
             await Server._instance.start();

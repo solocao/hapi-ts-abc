@@ -1,5 +1,5 @@
 import { Document, Schema, Model, model } from "mongoose";
-import paginate from "mongoose-paginate";
+import * as paginate from "mongoose-paginate";
 
 
 export interface IComment extends Document {
