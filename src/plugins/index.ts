@@ -19,23 +19,6 @@ export default class Plugins {
         }
     }
 
-    public static async swagger(server: Hapi.Server): Promise<Error | any> {
-        try {
-            Logger.info('Plugins - Registering swagger-ui');
-
-            await Plugins.register(server, [
-                require('vision'),
-                require('inert'),
-                {
-                    options: Config.swagger.options,
-                    plugin: require('hapi-swagger'),
-                },
-            ]);
-        } catch (error) {
-            Logger.info(`Plugins - Ups, something went wrong when registering swagger-ui plugin: ${error}`);
-        }
-    }
-
     public static async boom(server: Hapi.Server): Promise<Error | any> {
         try {
             Logger.info('Plugins - Registering hapi-boom-decorators');
@@ -59,14 +42,12 @@ export default class Plugins {
             // 加载指定插件
             const plugin = require(Path.join(__dirname, file)).default();
             await plugin.register(server);
-            Logger.info(`注册插件--${plugin.info().name} v${plugin.info().version}`);
+            Logger.info(`注册插件 -  ${plugin.info().name} v${plugin.info().version}`);
         })
 
         // 如果是开发者环境，需要swagger
         // if (process.env.NODE_ENV === 'development') {
-
         //     await Plugins.status(server);
-        //     await Plugins.swagger(server);
         // }
         await Plugins.boom(server);
     }
