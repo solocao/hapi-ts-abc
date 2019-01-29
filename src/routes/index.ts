@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as Path from 'path';
 import IRoute from '../helper/route';
 import Logger from '../helper/logger';
+// import Route from './user'
 export class Routes implements IRoute {
   public async register(server: Hapi.Server): Promise<any> {
     return new Promise(resolve => {
@@ -10,8 +11,8 @@ export class Routes implements IRoute {
         return Path.extname(file).toLowerCase() === '.js' && file !== 'index.js'
       });
       files.forEach(async function (file) {
-        const { routes } = await import(Path.join(__dirname, file));
-        server.route(routes)
+        const { Route } = await import(Path.join(__dirname, file));
+        new Route(server).register();
       })
       resolve();
     });
