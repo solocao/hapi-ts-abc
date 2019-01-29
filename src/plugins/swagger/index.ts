@@ -1,33 +1,20 @@
 import { IPlugin } from "../interface";
+import config from "../../config"
 import * as Hapi from "hapi";
+
+
 
 const register = async (server: Hapi.Server): Promise<void> => {
   try {
+
+    const { swagger } = config;
+
     return server.register([
       require("inert"),
       require("vision"),
       {
         plugin: require("hapi-swagger"),
-        options: {
-          info: {
-            title: "Task Api",
-            description: "Task Api Documentation",
-            version: "1.0"
-          },
-          tags: [
-            {
-              name: "tasks",
-              description: "Api tasks interface."
-            },
-            {
-              name: "users",
-              description: "Api users interface."
-            }
-          ],
-          swaggerUI: true,
-          documentationPage: true,
-          documentationPath: "/documentation"
-        }
+        options: swagger.options
       }
     ]);
   } catch (err) {
