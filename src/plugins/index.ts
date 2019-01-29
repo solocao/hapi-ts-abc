@@ -45,6 +45,18 @@ export default class Plugins {
             Logger.info(`注册插件 -  ${plugin.info().name} v${plugin.info().version}`);
         })
 
+
+        // await Plugins.register(server, {
+        //     plugin: require('../custom/wechat'),
+        // });
+
+        // server.register(require('../custom/wechat'));
+
+
+        // server.register({ register: require('../custom/wechat') });
+
+
+
         // 如果是开发者环境，需要swagger
         // if (process.env.NODE_ENV === 'development') {
         //     await Plugins.status(server);
