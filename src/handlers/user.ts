@@ -3,22 +3,15 @@ import * as Boom from "boom";
 
 
 export default class UserHandler {
-  server: Hapi.Server;
+  server: any;
 
-
-  constructor(server: Hapi.Server) {
+  constructor(server: any) {
     this.server = server;
   }
 
   public async loginUser(request: Hapi.Request, h: Hapi.ResponseToolkit) {
-
-    console.log(this.server.app.redisCache)
-
-    await this.server.app.redisCache.set('111', { asf: '666' });
-    const value = await this.server.app.redisCache.get('111');
-    console.log(value);
-
-
+    await this.server.redisCache.set('111', 'asfasfaefea');
+    const value = await this.server.redisCache.get('111');
     return value
   }
 }

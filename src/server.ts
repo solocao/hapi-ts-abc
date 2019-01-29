@@ -7,11 +7,7 @@ import Router from './routes';
 import * as Hoek from "hoek";
 
 export default class Server {
-    private static _instance: Hapi.Server;
-
-    public static haha: string;
-
-
+    private static _instance: any;
 
     public static async start(): Promise<Hapi.Server> {
         try {
@@ -45,25 +41,11 @@ export default class Server {
 
             await Server._instance.start();
 
-
-
             const redisCache = Server._instance.cache({ cache: 'redisCache', segment: 'examples17', expiresIn: 5 * 60 * 1000 });
-            // Server._instance.app.redisCache = redisCache;
-
-            redisCache.set('asf', { asf: 'safsf' });
-
             const mongoCache = Server._instance.cache({ cache: 'mongoCache', segment: 'examples17', expiresIn: 5 * 60 * 1000 });
 
-            // Server._instance.app = redisCache;
-
-            mongoCache.set('asf', { asf: 'safsf' });
-
-
-            Server._instance.app = {
-                redisCache,
-                mongoCache
-            };
-
+            Server._instance.mongoCache = redisCache;
+            Server._instance.redisCache = redisCache;
 
             Logger.info('Server - Up and running!');
             Logger.info(`Visit: http://${process.env.HOST}:${process.env.PORT}/api/users for REST API`);
