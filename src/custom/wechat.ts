@@ -1,6 +1,6 @@
 exports.plugin = {
 
-  name: 'sfs',
+  name: '测试插件',
   version: 'sfasfe',
   once: true,
   multiple: false,

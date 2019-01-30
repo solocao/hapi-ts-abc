@@ -2,16 +2,15 @@ import * as Hapi from 'hapi';
 import * as fs from 'fs';
 import * as Path from 'path';
 
-import Config from '../config';
+import config from '../config';
 import Logger from '../helper/logger';
-
 export default class Plugins {
     public static async status(server: Hapi.Server): Promise<Error | any> {
         try {
             Logger.info('Plugins - Registering status-monitor');
 
             await Plugins.register(server, {
-                options: Config.status.options,
+                options: config.status.options,
                 plugin: require('hapijs-status-monitor'),
             });
         } catch (error) {
@@ -50,7 +49,11 @@ export default class Plugins {
         //     plugin: require('../custom/wechat'),
         // });
 
-        // server.register(require('../custom/wechat'));
+
+        server.register({
+            plugin: require(Path.join(__dirname, '../../../my_modules/wechat/lib/index.js')),
+            options: { ceshi: '测试参数' }
+        });
 
 
         // server.register({ register: require('../custom/wechat') });
