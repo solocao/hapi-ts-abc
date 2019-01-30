@@ -50,6 +50,8 @@
     "@types/mongoose-paginate": "^5.0.6",
     "@types/nedb": "^1.8.3",
     "@types/node": "^10.12.18",
+    "@types/sha1": "^1.1.1",
+    "@types/superagent": "^3.8.6",
     "@types/tape": "^4.2.33",
     "catbox-mongodb": "^4.2.1",
     "catbox-redis": "^4.2.4",
@@ -70,6 +72,8 @@
     "mongoose": "^5.4.7",
     "mongoose-paginate": "^5.0.3",
     "nedb": "^1.8.0",
+    "sha1": "^1.1.1",
+    "superagent": "^4.1.0",
     "vision": "^5.4.4",
     "winston": "^3.1.0"
   },

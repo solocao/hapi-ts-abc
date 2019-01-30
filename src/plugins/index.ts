@@ -45,8 +45,6 @@ export default class Plugins {
         })
 
 
-
-
         // server.register({
         //     plugin: require(Path.join(__dirname, '../../../my_modules/wechat/lib/index.js')),
         //     options: config.wechat
