@@ -30,9 +30,22 @@ export default class Weixin {
     console.log('哈哈哈囖囖囖囖')
   };
 
+  // 微信公众号 服务器接入检测
+  tokenCheck(query: any) {
+    const token = this.options.token;
+    const { signature, nonce, timestamp, echostr } = query;
+    const str = [token, timestamp, nonce].sort().join('');
+    const sha = sha1(str);
+    if (sha === signature) {
+      return echostr;
+    } else {
+      return false;
+    }
+  };
+
   /**
- * 获取全局访问token
- */
+   * 获取全局访问token
+  */
   async getGlobalToken(): Promise<string> {
     if (this._globalToken && Date.now() < this._globalTokenTime) {
       return this._globalToken;
