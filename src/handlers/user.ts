@@ -10,6 +10,14 @@ export default class UserHandler {
   }
 
   public async loginUser(request: Hapi.Request, h: Hapi.ResponseToolkit) {
+
+
+    // @ts-ignore
+    h.wx.greet();
+
+    // return aaa;
+
+
     await this.server.redisCache.set('111', 'asfasfaefea');
     const value = await this.server.redisCache.get('111');
     return value

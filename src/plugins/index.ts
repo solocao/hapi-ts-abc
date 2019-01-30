@@ -50,7 +50,6 @@ export default class Plugins {
         //     options: config.wechat
         // });
 
-
         // server.register({ register: require('../custom/wechat') });
 
 

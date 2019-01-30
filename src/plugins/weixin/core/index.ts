@@ -4,7 +4,7 @@ import sha1 = require('sha1');
 import { randomString, timeStamp } from '../helper';
 import { Options, JsConfigOptions, JsConfig, AccessToken, UserInfo, FansInfo, MediaData } from '../index.d';
 
-export class Weixin {
+export default class Weixin {
   options: Options;
   _globalToken: string;
   _globalTokenTime: number;
@@ -12,6 +12,8 @@ export class Weixin {
   _jsapiTicketTime: number;
 
   constructor(options?: Options) {
+
+
     this.options = options || {} as Options;
     if (!this.options.channel) {
       this.options.channel = 'jssdk';
@@ -20,11 +22,15 @@ export class Weixin {
 
   setOptions(options: Options) {
     _.assign(this.options, options);
-  }
+  };
+
+  greet() {
+    console.log('哈哈哈囖囖囖囖')
+  };
 
   /**
-   * 获取全局访问token
-   */
+ * 获取全局访问token
+ */
   async getGlobalToken(): Promise<string> {
     if (this._globalToken && Date.now() < this._globalTokenTime) {
       return this._globalToken;
@@ -38,6 +44,7 @@ export class Weixin {
     this._globalTokenTime = Date.now() + expires_in * 1000 - 5000;
     return this._globalToken;
   }
+
 
   /**
    * 获取全局访问Ticket
@@ -167,29 +174,5 @@ export class Weixin {
     return JSON.parse(text);
   }
 
-  /**
-   * 下载媒体文件
-   * @param media_id
-   */
-  async downloadMedia(media_id: string): Promise<void> {
-    let token = await this.getGlobalToken();
-    let url = `http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=${token}&media_id=${media_id}`;
 
-    // let result = client.get(url);
-    // let headers = await result.headers();
-
-    // if (!headers.has('Content-Disposition') && !headers.has('content-disposition')) {
-    //   throw new Error('No media disposition');
-    // }
-
-    // let buffer = await result.buffer() as MediaData;
-
-    // if (!buffer) {
-    //   throw new Error('No media data');
-    // }
-
-    // buffer.type = headers.get('Content-Type') || headers.get('content-type');
-
-    // return 'buffer';
-  }
 }

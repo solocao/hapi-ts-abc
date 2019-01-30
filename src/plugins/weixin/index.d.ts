@@ -11,6 +11,9 @@ export interface Options {
    * 秘钥
    */
   secret: string;
+
+  token: string;
+  encodingAESKey: string;
 }
 
 export interface JsConfig {

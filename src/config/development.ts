@@ -32,11 +32,9 @@ export default {
     },
   },
   // 微信公众号的配置
-  wechat: {
-    routerPath: '/wechat',
-    handlerPath: '*.js',
+  weixin: {
     appid: 'wxc00a6659e9953d62',
-    appsecret: '2c741fab7f817bd6d9db1c8daa99acda',
+    secret: '2c741fab7f817bd6d9db1c8daa99acda',
     token: '0aa6510054c141a48e68f8277ff502e3',
     encodingAESKey: 'cY2fCtedFhpWYnjbpJxnOeOkUOyexksXTiQx5vlL7tE'
   }
