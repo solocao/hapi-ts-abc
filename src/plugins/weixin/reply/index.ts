@@ -1,7 +1,15 @@
+import { timeStamp } from '../helper';
 export default class Reply {
   // 返回文本
-  text() {
-    return '这是返回的text'
+  text(toUser: string, fromUser: string, content: string) {
+    const data = `<xml>
+    <ToUserName><![CDATA[${toUser}]]></ToUserName>
+    <FromUserName><![CDATA[${fromUser}]]></FromUserName>
+    <CreateTime>${timeStamp()}</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[${content}]]></Content>
+    </xml>`;
+    return data
   };
   // 返回文本
   image() {
