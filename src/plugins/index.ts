@@ -45,15 +45,12 @@ export default class Plugins {
         })
 
 
-        // await Plugins.register(server, {
-        //     plugin: require('../custom/wechat'),
+
+
+        // server.register({
+        //     plugin: require(Path.join(__dirname, '../../../my_modules/wechat/lib/index.js')),
+        //     options: config.wechat
         // });
-
-
-        server.register({
-            plugin: require(Path.join(__dirname, '../../../my_modules/wechat/lib/index.js')),
-            options: { ceshi: '测试参数' }
-        });
 
 
         // server.register({ register: require('../custom/wechat') });
