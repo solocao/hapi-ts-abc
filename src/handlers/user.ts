@@ -14,6 +14,8 @@ export default class UserHandler {
 
     // @ts-ignore
     h.wx.greet();
+    const asf = h.wx.reply.text();
+    console.log(asf)
 
     // return aaa;
 

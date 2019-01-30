@@ -4,20 +4,22 @@ import sha1 = require('sha1');
 import { randomString, timeStamp } from '../helper';
 import { Options, JsConfigOptions, JsConfig, AccessToken, UserInfo, FansInfo, MediaData } from '../index.d';
 
+import Reply from '../reply';
+
 export default class Weixin {
   options: Options;
   _globalToken: string;
   _globalTokenTime: number;
   _jsapiTicket: string;
   _jsapiTicketTime: number;
+  reply: any;
 
   constructor(options?: Options) {
-
-
     this.options = options || {} as Options;
     if (!this.options.channel) {
       this.options.channel = 'jssdk';
     }
+    this.reply = new Reply();
   }
 
   setOptions(options: Options) {
