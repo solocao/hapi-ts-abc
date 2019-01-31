@@ -6,8 +6,9 @@ const parser = require('xml2json');
 
 const register = async (server: Hapi.Server): Promise<void> => {
   try {
+    // 返回微信工具对象
+    const weixin = Weixin(config.weixin, ['user']);
 
-    const weixin = new Weixin(config.weixin);
     // @ts-ignore
     server.decorate('toolkit', 'wx', weixin);
 
@@ -35,6 +36,7 @@ const register = async (server: Hapi.Server): Promise<void> => {
       },
       handler: (request, h) => {
         const data = JSON.parse(parser.toJson(request.payload)).xml;
+        console.log(data)
         // 定义参数
         const toUser = data.FromUserName;
         const fromUser = data.ToUserName;
@@ -52,8 +54,11 @@ const register = async (server: Hapi.Server): Promise<void> => {
         description: '发送模版消息测试',
         auth: false,
       },
-      handler: (request, h) => {
-        return h.wx.sendTplMsg('CcjJA3nfkywssKig9Xlkd37gzOd3edjSiGa1QytpbwI');
+      handler: async (request, h) => {
+
+        const value = await h.wx.logit();
+        return value
+        // return h.wx.sendTplMsg('CcjJA3nfkywssKig9Xlkd37gzOd3edjSiGa1QytpbwI');
       }
     });
 

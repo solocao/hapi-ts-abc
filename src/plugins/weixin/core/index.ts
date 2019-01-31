@@ -7,7 +7,7 @@ import { Options, JsConfigOptions, JsConfig, AccessToken, UserInfo, FansInfo, Me
 import Reply from '../reply';
 import Msg from '../msg';
 
-export default class Weixin {
+const Weixin = class Weixin {
   options: Options;
   _globalToken: string;
   _globalTokenTime: number;
@@ -23,6 +23,19 @@ export default class Weixin {
     }
     this.reply = new Reply();
     this.msg = new Msg();
+
+    // interface Weixin {
+    //   logit(): any;
+    // };
+
+    // Weixin.prototype.logit = function () {
+    //   console.log('asfasfafa');
+    // }
+
+
+
+
+
   }
 
   setOptions(options: Options) {
@@ -54,8 +67,7 @@ export default class Weixin {
       return this._globalToken;
     }
     let url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.options.appid}&secret=${this.options.secret}`;
-    const data = await client.get(url);
-
+    const data = await client.get(url).catch(err => { console.log(err) });
     const text = data.text;
     //                     失效时间
     const { access_token, expires_in } = JSON.parse(text);
@@ -195,7 +207,6 @@ export default class Weixin {
   // 发送自定义模版消息
   async sendTplMsg(template_id: string) {
     let access_token = await this.getGlobalToken();
-
     const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`;
     const payload = {
       touser: "oFVpQ1qGVmf4Vf0pCkLdEWsQiM2k",
@@ -203,27 +214,41 @@ export default class Weixin {
       url: "http://weixin.qq.com/download",
       topcolor: "#FF0000",
       data: {
-        first: '您的网站业务系统()已经被上传WEBSHELL，服务器已经被攻击者控制，业务系统面临服务中断、数据泄露、被篡改的风险，需要立刻清除。',
-        keyword1: 'WEBSHELL后门攻击',
-        keyword2: '2016-03-03 06:03:37',
-        remark: '请尽快处理。'
+        first: {
+          value: '您的网站业务系统()已经被上传WEBSHELL，服务器已经被攻击者控制，业务系统面临服务中断、数据泄露、被篡改的风险，需要立刻清除。',
+          color: "#173177"
+        },
+        keyword1: {
+          value: '祝大家猪年快乐',
+          color: "#173177"
+        },
+        keyword2: {
+          value: '2019-01-31 10:03:37',
+          color: "#173177"
+        },
+        remark: {
+          value: '请尽快处理。',
+          color: "#173177"
+        },
       }
     }
     const data = await client.post(url).send(payload).catch(err => { console.log(err) });
-    console.log('看看数据');
-    console.log(data.text);
-    return '这是返回的text'
+    // @ts-ignore
+    const result = JSON.parse(data.text);
+    return result
   }
 
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+export default (config: any, ext: string[]) => {
+  // interface Weixin {
+  //   logit(): void;
+  // }
+
+  // Weixin.prototype.logit = function () {
+  //   return this.getGlobalToken()
+  // }
+  return new Weixin(config);
+};
