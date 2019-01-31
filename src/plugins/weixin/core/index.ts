@@ -5,6 +5,7 @@ import { randomString, timeStamp } from '../helper';
 import { Options, JsConfigOptions, JsConfig, AccessToken, UserInfo, FansInfo, MediaData } from '../index.d';
 
 import Reply from '../reply';
+import Msg from '../msg';
 
 export default class Weixin {
   options: Options;
@@ -13,6 +14,7 @@ export default class Weixin {
   _jsapiTicket: string;
   _jsapiTicketTime: number;
   reply: any;
+  msg: any;
 
   constructor(options?: Options) {
     this.options = options || {} as Options;
@@ -20,6 +22,7 @@ export default class Weixin {
       this.options.channel = 'jssdk';
     }
     this.reply = new Reply();
+    this.msg = new Msg();
   }
 
   setOptions(options: Options) {
@@ -52,6 +55,7 @@ export default class Weixin {
     }
     let url = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${this.options.appid}&secret=${this.options.secret}`;
     const data = await client.get(url);
+
     const text = data.text;
     //                     失效时间
     const { access_token, expires_in } = JSON.parse(text);
@@ -59,7 +63,6 @@ export default class Weixin {
     this._globalTokenTime = Date.now() + expires_in * 1000 - 5000;
     return this._globalToken;
   }
-
 
   /**
    * 获取全局访问Ticket
@@ -188,6 +191,39 @@ export default class Weixin {
     const text = data.text;
     return JSON.parse(text);
   }
+
+  // 发送自定义模版消息
+  async sendTplMsg(template_id: string) {
+    let access_token = await this.getGlobalToken();
+
+    const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${access_token}`;
+    const payload = {
+      touser: "oFVpQ1qGVmf4Vf0pCkLdEWsQiM2k",
+      template_id: template_id,
+      url: "http://weixin.qq.com/download",
+      topcolor: "#FF0000",
+      data: {
+        first: '您的网站业务系统()已经被上传WEBSHELL，服务器已经被攻击者控制，业务系统面临服务中断、数据泄露、被篡改的风险，需要立刻清除。',
+        keyword1: 'WEBSHELL后门攻击',
+        keyword2: '2016-03-03 06:03:37',
+        remark: '请尽快处理。'
+      }
+    }
+    const data = await client.post(url).send(payload).catch(err => { console.log(err) });
+    console.log('看看数据');
+    console.log(data.text);
+    return '这是返回的text'
+  }
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -44,6 +44,18 @@ const register = async (server: Hapi.Server): Promise<void> => {
         return response;
       }
     });
+    server.route({
+      method: 'POST',
+      path: '/send',
+      options: {
+        tags: ['api'],
+        description: '发送模版消息测试',
+        auth: false,
+      },
+      handler: (request, h) => {
+        return h.wx.sendTplMsg('CcjJA3nfkywssKig9Xlkd37gzOd3edjSiGa1QytpbwI');
+      }
+    });
 
   } catch (err) {
     console.log(`Error registering swagger plugin: ${err}`);
