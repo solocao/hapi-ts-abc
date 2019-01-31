@@ -71,7 +71,18 @@ const register = async (server: Hapi.Server): Promise<void> => {
         auth: false,
       },
       handler: async (request, h) => {
+        // const value = await h.wx.batchGetUsers([
+        //   "oFVpQ1qXJKr9eHD-JN0GnYjlOfQs",
+        //   "oFVpQ1qGVmf4Vf0pCkLdEWsQiM2k",
+        //   "oFVpQ1jjISnhtZ7lLE8H4uq0_2sc",
+        //   "oFVpQ1nNWTl7F4Dyscx-ERu9oCvw",
+        //   "oFVpQ1rzojDnj9Hb2eg1mb6V868Y"
+        // ]);
+
         const value = await h.wx.getUser();
+
+
+
         return value
       }
     });
