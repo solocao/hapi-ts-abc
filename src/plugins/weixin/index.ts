@@ -56,11 +56,27 @@ const register = async (server: Hapi.Server): Promise<void> => {
       },
       handler: async (request, h) => {
 
-        const value = await h.wx.logit();
+        const value = await h.wx.ggg();
         return value
         // return h.wx.sendTplMsg('CcjJA3nfkywssKig9Xlkd37gzOd3edjSiGa1QytpbwI');
       }
     });
+
+    server.route({
+      method: 'POST',
+      path: '/test',
+      options: {
+        tags: ['api'],
+        description: '发送模版消息测试',
+        auth: false,
+      },
+      handler: async (request, h) => {
+        const value = await h.wx.getUser();
+        return value
+      }
+    });
+
+
 
   } catch (err) {
     console.log(`Error registering swagger plugin: ${err}`);

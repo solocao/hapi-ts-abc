@@ -3,6 +3,7 @@ import * as client from 'superagent';
 import sha1 = require('sha1');
 import { randomString, timeStamp } from '../helper';
 import { Options, JsConfigOptions, JsConfig, AccessToken, UserInfo, FansInfo, MediaData } from '../index.d';
+import * as Path from 'path';
 
 import Reply from '../reply';
 import Msg from '../msg';
@@ -237,18 +238,19 @@ const Weixin = class Weixin {
     const result = JSON.parse(data.text);
     return result
   }
-
 }
 
 
 
 export default (config: any, ext: string[]) => {
-  // interface Weixin {
-  //   logit(): void;
-  // }
 
-  // Weixin.prototype.logit = function () {
-  //   return this.getGlobalToken()
-  // }
+  // Object.keys(user).map((x) => {
+  //   console.log(x)
+  // })
+
+
+  const user = require(Path.join(__dirname, '../user'));
+  user.load(Weixin);
+
   return new Weixin(config);
 };
